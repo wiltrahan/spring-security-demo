@@ -14,31 +14,28 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		
-		//add our users for in memory authentication
+
+		// add our users for in memory authentication
 		
 		UserBuilder users = User.withDefaultPasswordEncoder();
 		
 		auth.inMemoryAuthentication()
 			.withUser(users.username("frankie").password("test123").roles("user"))
-			.withUser(users.username("jess").password("test333").roles("user"))
-			.withUser(users.username("willis").password("test1111").roles("user"));
+			.withUser(users.username("jess").password("test123").roles("user"))
+			.withUser(users.username("wil").password("test123").roles("user"));
 	}
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		
+
 		http.authorizeRequests()
-			.anyRequest().authenticated()
+				.anyRequest().authenticated()
 			.and()
 			.formLogin()
 				.loginPage("/showMyLoginPage")
 				.loginProcessingUrl("/authenticateTheUser")
 				.permitAll();
-	
+		
 	}
-	
-	
-
-	
+		
 }
